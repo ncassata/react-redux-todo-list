@@ -47,10 +47,14 @@ export class App extends React.Component<{}, IState> {
   public renderTasks(): JSX.Element[] {
     return this.state.tasks.map((task: ITask, index: number) => {
       return (
-        <div key={task.id}>
-          <span>{task.value}</span>
+        <div key={task.id} className="tdl-task">
+          <span className={task.completed ? "is-completed" : ""}>
+            {task.value}
+          </span>
           <button onClick={() => this.deleteTask(task.id)}>Delete</button>
-          <button onClick={() => this.toggleDone(index)}>Done</button>
+          <button onClick={() => this.toggleDone(index)}>
+            {task.completed ? "Undo" : "Done"}
+          </button>
         </div>
       );
     });
@@ -63,6 +67,7 @@ export class App extends React.Component<{}, IState> {
         <form onSubmit={(e) => this.handleSubmit(e)}>
           <input
             type="text"
+            className="tdl-input"
             placeholder="Add a Task"
             value={this.state.currentTask}
             onChange={(e) => this.setState({ currentTask: e.target.value })}
