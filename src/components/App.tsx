@@ -9,7 +9,7 @@ export class App extends React.Component<{}, IState> {
       tasks: [],
     };
   }
-  handleSubmit(e: any) {
+  public handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
     e.preventDefault();
     this.setState({
       currentTask: "",
@@ -17,7 +17,13 @@ export class App extends React.Component<{}, IState> {
     });
   }
 
-  render() {
+  public renderTasks(): JSX.Element[] {
+    return this.state.tasks.map((task: string, index: number) => {
+      return <div key={index}>{task}</div>;
+    });
+  }
+
+  public render(): JSX.Element {
     return (
       <div>
         <h1>React Typescript Todo List</h1>
@@ -30,6 +36,7 @@ export class App extends React.Component<{}, IState> {
           />
           <button type="submit">Add Task</button>
         </form>
+        <section>{this.renderTasks()}</section>
       </div>
     );
   }
